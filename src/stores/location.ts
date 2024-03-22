@@ -1,10 +1,7 @@
 import { defineStore } from 'pinia';
 import axios, { type AxiosResponse } from 'axios';
+import { type Locations } from '../interfaces'
 
-interface Locations {
-    id: number;
-    location: string;
-}
 
 const useLocationsStore = defineStore('locationsStore', {
     state: () => ({
@@ -13,7 +10,6 @@ const useLocationsStore = defineStore('locationsStore', {
     getters: {
         getLocationById: (state) => (id: number) => {
             const location = state.locationsList.find((location) => location.id === id)
-            console.log(location?.location);
             return location?.location
         },
         getLocationList: (state) => state.locationsList,

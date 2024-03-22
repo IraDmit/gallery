@@ -1,6 +1,7 @@
 <template>
-    <div>
-
+    <div class="filters-wrp">
+        <input type="text" placeholder="Name">
+        <div class="select"></div>
     </div>
 </template>
 

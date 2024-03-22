@@ -8,18 +8,8 @@ User
 <script setup lang="ts">
 import { defineProps } from 'vue';
 import appPainting from './app-painting.vue';
+import { type Painting } from '../interfaces'
 
-// Определим интерфейс для объекта рисунка
-interface Painting {
-  authorId: number;
-  created: string;
-  id: number;
-  imageUrl: string;
-  locationId: number;
-  name: string;
-}
-
-// Определим пропсы компонента
 const props = defineProps<{
   paintings: Painting[];
 }>();

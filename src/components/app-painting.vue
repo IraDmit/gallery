@@ -11,17 +11,10 @@
 </template>
 
 <script setup lang="ts">
-import useAuthorsStore from '../stores/author.ts';
-import useLocationsStore from '../stores/location.ts';
+import useAuthorsStore from '../stores/author';
+import useLocationsStore from '../stores/location';
+import { type Painting } from '../interfaces'
 
-interface Painting {
-  authorId: number;
-  created: string;
-  id: number;
-  imageUrl: string;
-  locationId: number;
-  name: string;
-}
 
 const { pictureInfo } = defineProps<{
   pictureInfo: Painting;

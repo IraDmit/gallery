@@ -1,4 +1,16 @@
-@import './base.css';
+@import './fonts.css';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h4 {
+  margin: 0;
+}
 
 .container {
   max-width: 1120px;

@@ -1,10 +1,7 @@
 import { defineStore } from 'pinia';
 import axios, { type AxiosResponse } from 'axios';
+import { type Authors } from '../interfaces'
 
-interface Authors {
-  id: number;
-  name: string;
-}
 
 const useAuthorsStore = defineStore('authorsStore', {
   state: () => ({
@@ -13,7 +10,7 @@ const useAuthorsStore = defineStore('authorsStore', {
   getters: {
     getAuthorById: (state) => (id: number) => {
       const author = state.authorsList.find((author) => author.id === id)
-      console.log(author?.name);
+
       return author?.name
     },
     getAuthorsList: (state) => state.authorsList,
