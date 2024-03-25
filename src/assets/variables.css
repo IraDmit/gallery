@@ -1,0 +1,28 @@
+[data-theme="dark"] {
+    --bg: #000;
+    --pagination-hover: #464646;
+    --txt-color: #fff;
+    --border: #fff;
+    --active-bg: #fff;
+    --themeSwitcher: #fff;
+    --active-txt: #000;
+    --arr-color: #fff;
+    --disable-border: .6;
+    --bg-filter: #0c0c0c;
+    --placeholder-color: rgba(255, 255, 255, 0.3);
+    ;
+}
+
+[data-theme="light"] {
+    --bg: #fff;
+    --pagination-hover: #EDEDED;
+    --txt-color: #000;
+    --border: #000;
+    --active-bg: #000000;
+    --themeSwitcher: #000;
+    --active-txt: #fff;
+    --arr-color: #000;
+    --disable-border: .3;
+    --bg-filter: #fff;
+    --placeholder-color: rgba(0, 0, 0, 0.3);
+}

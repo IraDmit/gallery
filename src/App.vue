@@ -1,8 +1,11 @@
 <template>
-  <div class="container">
-    <the-header />
-    <the-gallery :paintings="paintingData" />
-    <the-pagination :lastPage="countMaxPage" :currentPage="currentPage" @toCurrentPage="handleToCurrentPage" />
+  <div class="app" :data-theme="isLightTheme ? 'light' : 'dark'">
+    <div class="container">
+      <the-header @switchTheme="switchTheme" />
+      <the-filters />
+      <the-gallery :paintings="paintingData" />
+      <the-pagination :lastPage="countMaxPage" :currentPage="currentPage" @toCurrentPage="handleToCurrentPage" />
+    </div>
   </div>
 </template>
 
@@ -11,6 +14,7 @@ import { ref, computed } from 'vue';
 import theHeader from './navigation/the-header.vue';
 import thePagination from './components/the-pagination.vue'
 import theGallery from './components/the-gallery.vue';
+import theFilters from './components/the-filters.vue';
 import useAuthorsStore from './stores/author';
 import useLocationsStore from './stores/location';
 import { fetchData } from './service'
@@ -19,10 +23,12 @@ import { useRouter } from 'vue-router'
 const paintingData = ref();
 const router = useRouter()
 const limit = 12
+const currentPage = ref(1)
+const isLightTheme = ref(false)
+
 const { fetchAuthors } = useAuthorsStore();
 const { fetchLocations } = useLocationsStore();
 
-const currentPage = ref(1)
 const countMaxPage = computed(() => {
   return Math.ceil(33 / limit)
 })
@@ -35,7 +41,12 @@ fetchData()
   })
   .catch(error => {
     console.error('Ошибка при выполнении запроса:', error);
-  });
+  }
+  );
+
+const switchTheme = () => {
+  isLightTheme.value = !isLightTheme.value
+}
 
 const handleToCurrentPage = (page: HTMLElement | number) => {
   if (typeof page === 'number') {
@@ -56,8 +67,9 @@ const handleToCurrentPage = (page: HTMLElement | number) => {
 </script>
 
 <style scoped>
-#app {
-  background: rgb(0, 0, 0);
-  color: #fff;
+.app {
+  background: var(--bg);
+  color: var(--txt-color);
+  transition: .3s;
 }
 </style>

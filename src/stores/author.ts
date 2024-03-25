@@ -13,7 +13,9 @@ const useAuthorsStore = defineStore('authorsStore', {
 
       return author?.name
     },
-    getAuthorsList: (state) => state.authorsList,
+    getAuthorsList: (state) => {
+      return state.authorsList
+    },
   },
 
   actions: {

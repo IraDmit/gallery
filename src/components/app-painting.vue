@@ -20,8 +20,6 @@ const { pictureInfo } = defineProps<{
   pictureInfo: Painting;
 }>();
 
-
-// const store = useAuthorsStore();
 const { getAuthorById } = useAuthorsStore();
 const { getLocationById } = useLocationsStore();
 

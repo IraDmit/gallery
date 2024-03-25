@@ -12,7 +12,7 @@ const useLocationsStore = defineStore('locationsStore', {
             const location = state.locationsList.find((location) => location.id === id)
             return location?.location
         },
-        getLocationList: (state) => state.locationsList,
+        getLocationsList: (state) => state.locationsList,
     },
 
     actions: {
