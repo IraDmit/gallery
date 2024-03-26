@@ -1,19 +1,19 @@
 <template>
     <div class="filters-wrp">
         <component :is="filter.component" v-for="(filter, idx) in filtersList" :key="`filter${idx}`"
-            :placeholder="filter.placeholder" :store="filter.store" />
+            :placeholder="filter.placeholder" :store="filter.store" @changeFilter="changeFilter" />
     </div>
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue'
+import { storeToRefs } from 'pinia';
 import appInput from './fields/app-input.vue';
 import appSelect from './fields/app-select.vue';
 import appSelectDate from './fields/app-selectDate.vue';
 
 import useAuthorsStore from '../stores/author';
 import useLocationsStore from '../stores/location';
-import { storeToRefs } from 'pinia';
 
 const { getAuthorsList } = storeToRefs(useAuthorsStore())
 const { getLocationsList } = storeToRefs(useLocationsStore());
@@ -40,7 +40,32 @@ const filtersList = reactive(
         store: '',
         type: ''
     }]
-) 
+)
+
+const emit = defineEmits<{
+    changeLocation: any,
+    changeAuthor: any,
+    changeName: any,
+    changeDate: any
+}>()
+
+const changeFilter = (filter: any, type: string) => {
+    switch (type) {
+        case 'name': {
+            emit('changeName', filter);
+            break;
+        }
+        case 'select': {
+            filter.name ? emit('changeAuthor', filter) : emit('changeLocation', filter);
+            break;
+        }
+        case 'date': {
+            emit('changeDate', filter);
+            break;
+        }
+    }
+}
+
 </script>
 
 <style scoped lang="scss">

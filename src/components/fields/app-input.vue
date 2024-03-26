@@ -1,5 +1,5 @@
 <template>
-    <input type="text" :placeholder="placeholder" v-model="name">
+    <input type="text" :placeholder="placeholder" v-model="name" @input="emit('changeFilter', name, 'name')">
 </template>
 
 <script setup lang="ts">
@@ -10,6 +10,12 @@ const { placeholder } = defineProps<{
 }>()
 
 const name = ref()
+
+const emit = defineEmits<{
+    changeFilter: any
+}>()
+
+
 </script>
 
 <style scoped lang="scss">
@@ -24,7 +30,6 @@ input {
 
     &:focus {
         border: 1px solid var(--border);
-
     }
 
     &::placeholder {
