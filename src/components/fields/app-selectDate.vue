@@ -58,9 +58,8 @@ watch(filter, () => {
         top: 100%;
         left: 50%;
         transform: translateX(-50%);
-        width: 100%;
+        width: 101%;
         z-index: 10;
-
         background-color: var(--bg);
         border-radius: 0 0 8px 8px;
         opacity: 0;
@@ -74,10 +73,10 @@ watch(filter, () => {
         input {
             border: 1px solid var(--placeholder-color);
             border-radius: 8px;
-            background: var(--bg-filter);
+            background: var(--bg-date-input);
             padding: 15px;
             max-width: 95px;
-            color: var(--txt-color);
+            color: var(--color-date-input);
             font-family: Roboto;
 
             &:focus {
@@ -89,6 +88,16 @@ watch(filter, () => {
         &.open {
             opacity: 1;
             visibility: visible;
+        }
+
+        @media (max-width: 1024px) {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @media (max-width: 576px) {
+            flex-direction: row;
+            justify-content: center;
         }
     }
 

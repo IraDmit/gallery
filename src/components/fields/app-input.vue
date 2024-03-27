@@ -24,7 +24,7 @@ input {
     border-radius: 8px;
     background: var(--bg-filter);
     padding: 15px;
-
+    width: 100%;
     color: var(--txt-color);
     font-family: Roboto;
 

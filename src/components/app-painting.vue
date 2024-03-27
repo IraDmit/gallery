@@ -30,12 +30,12 @@ const { getLocationById } = useLocationsStore();
   position: relative;
   border-radius: 20px;
   overflow: hidden;
-  height: 275px;
+  max-height: 275px;
   cursor: pointer;
 
   img {
     width: 100%;
-    height: 275px;
+    height: 100%;
     object-fit: cover;
   }
 
@@ -91,6 +91,10 @@ const { getLocationById } = useLocationsStore();
         white-space: unset;
       }
     }
+  }
+
+  @media (max-width: 1024px) {
+    min-height: 230px;
   }
 }
 </style>

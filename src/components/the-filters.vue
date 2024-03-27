@@ -43,27 +43,11 @@ const filtersList = reactive(
 )
 
 const emit = defineEmits<{
-    changeLocation: any,
-    changeAuthor: any,
-    changeName: any,
-    changeDate: any
+    updateFilter: [filter: any, type: string]
 }>()
 
 const changeFilter = (filter: any, type: string) => {
-    switch (type) {
-        case 'name': {
-            emit('changeName', filter);
-            break;
-        }
-        case 'select': {
-            filter.name ? emit('changeAuthor', filter) : emit('changeLocation', filter);
-            break;
-        }
-        case 'date': {
-            emit('changeDate', filter);
-            break;
-        }
-    }
+    emit('updateFilter', filter, type)
 }
 
 </script>
@@ -74,5 +58,10 @@ const changeFilter = (filter: any, type: string) => {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 20px;
+
+    @media (max-width: 576px) {
+        grid-template-columns: repeat(1, 1fr);
+
+    }
 }
 </style>

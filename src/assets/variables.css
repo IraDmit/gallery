@@ -10,7 +10,9 @@
     --disable-border: .6;
     --bg-filter: #0c0c0c;
     --placeholder-color: rgba(255, 255, 255, 0.3);
-    ;
+    --bg-date-input: #fff;
+
+    --color-date-input: rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="light"] {
@@ -25,4 +27,6 @@
     --disable-border: .3;
     --bg-filter: #fff;
     --placeholder-color: rgba(0, 0, 0, 0.3);
+    --bg-date-input: #efefef;
+    --color-date-input: rgba(0, 0, 0, 0.3);
 }

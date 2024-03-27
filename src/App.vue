@@ -2,8 +2,7 @@
   <div class="app" :data-theme="isLightTheme ? 'light' : 'dark'">
     <div class="container">
       <the-header @switchTheme="switchTheme" />
-      <the-filters @changeLocation="changeLocation" @changeAuthor="changeAuthor" @changeName="changeName"
-        @changeDate="changeDate" />
+      <the-filters @updateFilter="updateFilter" />
       <the-gallery :paintings="paintingData" />
       <the-pagination :lastPage="countMaxPage" :currentPage="currentPage" @toCurrentPage="handleToCurrentPage" />
     </div>
@@ -28,7 +27,7 @@ const router = useRouter()
 const limit = 12
 const currentPage = ref(1)
 const isLightTheme = ref(false)
-const deafaultOptions = ref(`_page=${currentPage.value}&_limit=${limit}`)
+const defaultOptions = ref(`_page=${currentPage.value}&_limit=${limit}`)
 
 const { fetchAuthors } = useAuthorsStore();
 const { fetchLocations } = useLocationsStore();
@@ -44,11 +43,33 @@ const handleFetchData = (options: string) => {
     })
     .catch(error => {
       console.error('Ошибка при выполнении запроса:', error);
-    }
-    );
+    });
 }
 
-fetchData(deafaultOptions.value)
+const updateFilter = (filter: any, type: string) => {
+  if (!filter) {
+    handleFetchData(defaultOptions.value)
+    return
+  }
+  switch (type) {
+    case 'name': {
+      changeName(filter)
+      break;
+    }
+    case 'select': {
+      filter.name ? changeAuthor(filter) : changeLocation(filter)
+      break;
+    }
+    case 'date': {
+      changeDate(filter)
+      break;
+    }
+  }
+}
+
+const fetchDataWithDebounce = debounce(handleFetchData, 300);
+
+fetchData(defaultOptions.value)
   .then(data => {
     paintingData.value = data;
     fetchAuthors();
@@ -56,8 +77,7 @@ fetchData(deafaultOptions.value)
   })
   .catch(error => {
     console.error('Ошибка при выполнении запроса:', error);
-  }
-  );
+  });
 
 const switchTheme = () => {
   isLightTheme.value = !isLightTheme.value
@@ -81,31 +101,31 @@ const handleToCurrentPage = (page: HTMLElement | number) => {
 }
 
 const changeLocation = (filter: Locations) => {
-  console.log(filter);
-  const options = `locationId=${filter.id}`
-  handleFetchData(options || deafaultOptions.value)
+  let options
+  if (filter) {
+    options = `locationId=${filter.id}`
+
+  }
+  fetchDataWithDebounce(options || defaultOptions.value)
 }
+
 const changeAuthor = (filter: Authors) => {
-
-  const options = `authorId=${filter.id}`
-  handleFetchData(options || deafaultOptions.value)
+  let options
+  if (filter) {
+    options = `authorId=${filter.id}`
+  }
+  fetchDataWithDebounce(options || defaultOptions.value)
+  console.log(options || defaultOptions.value);
 }
+
 const changeName = (filter: string) => {
-
   const options = `q=${filter}`
-  debounce(
-    function () {
-      handleFetchData(options || deafaultOptions.value)
-
-    }
-  )
+  fetchDataWithDebounce(options || defaultOptions.value)
 }
-const changeDate = (filter: { gte: number, lte: number }) => {
 
-  const options = `_gte=${filter.gte ? filter.gte : 0}&_lte=${filter.lte ? filter.lte : 2024}`
-  debounce(
-    () => handleFetchData(options || deafaultOptions.value)
-  )
+const changeDate = (filter: { gte: number, lte: number }) => {
+  const options = `gte=${filter.gte ? filter.gte : 0}&lte=${filter.lte ? filter.lte : 2024}`
+  fetchDataWithDebounce(options || defaultOptions.value)
 }
 </script>
 

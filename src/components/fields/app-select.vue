@@ -41,8 +41,9 @@ const chooseOption = (target: Locations | Authors) => {
 }
 
 const clearFilter = () => {
+    isOpen.value = false
     filter.value = null
-    // emit('changeFilter', filter.v, 'select')
+    emit('changeFilter', filter.value, 'select')
 
 }
 </script>
@@ -61,9 +62,12 @@ const clearFilter = () => {
         padding: 15px;
         display: flex;
         justify-content: space-between;
+        grid-gap: 10px;
 
         .txt {
-
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             font-family: Roboto;
             font-size: 13px;
             font-weight: 400;
@@ -102,6 +106,9 @@ const clearFilter = () => {
 
         .item-option {
             padding: 15px 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
 
             &:hover {
                 background-color: var(--active-bg);

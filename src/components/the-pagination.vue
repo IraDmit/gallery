@@ -44,8 +44,6 @@ const emitToCurrentPage = (target: HTMLElement | number) => {
         transform: rotate(180deg);
     }
 
-
-
     &-arr,
     &-num {
         cursor: pointer;
@@ -69,6 +67,11 @@ const emitToCurrentPage = (target: HTMLElement | number) => {
             opacity: var(--disable-border);
             pointer-events: none;
         }
+    }
+
+    @media (max-width: 576px) {
+        align-items: center;
+        justify-content: center;
     }
 }
 </style>
